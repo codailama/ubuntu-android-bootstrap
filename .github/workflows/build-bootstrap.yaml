@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Fix permissions
-        run: sudo chown -R $USER:$USER /home/runner/work/ubuntu-linux-bootstrap
+        run: sudo chown -R $USER:$USER /home/runner/work/ubuntu-android-bootstrap
       - name: Checkout the code
         uses: actions/checkout@v2
       - uses: actions/setup-python@v2
@@ -21,7 +21,7 @@ jobs:
         run: |
           mkdir -p ~/Android
           ln -s ${ANDROID_HOME} ~/Android/Sdk 
-          sudo chown -R $USER:$USER /home/runner/work/ubuntu-linux-bootstrap
+          sudo chown -R $USER:$USER /home/runner/work/ubuntu-android-bootstrap
           ./generate-bootstraps.sh
         working-directory: ./scripts
       - name: Create github release
