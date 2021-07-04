@@ -15,7 +15,7 @@ mkdir -p build
 cd build
 rm -rf *
 cp ../ioctlHook.c .
-../build-ioctl-hook.sh
+#../build-ioctl-hook.sh
 
 cp -r ../../external/proot/build/* .
 
@@ -23,7 +23,7 @@ build_bootstrap () {
 	echo "Packing bootstrap for arch $1"
 	
 	case $1 in
-	aarch64)
+	arm64)
 		PROOT_ARCH="aarch64"
 		ANDROID_ARCH="arm64-v8a"
 		MUSL_ARCH="aarch64-linux-musl"
@@ -33,12 +33,12 @@ build_bootstrap () {
 		ANDROID_ARCH="armeabi-v7a"
 		MUSL_ARCH="arm-linux-musleabihf"
 		;;
-	x86_64)
+	amd64)
 		PROOT_ARCH="x86_64"
 		ANDROID_ARCH="x86_64"
 		MUSL_ARCH="x86_64-linux-musl"
 		;;
-	x86)
+	i386)
 		PROOT_ARCH="i686"
 		ANDROID_ARCH="x86"
 		MUSL_ARCH="i686-linux-musl"
@@ -56,18 +56,20 @@ build_bootstrap () {
 		cp root/bin/minitar root-pre5/bin/minitar
 	fi
 
-	curl -o rootfs.tar.xz -L "https://dl-cdn.alpinelinux.org/alpine/v3.13/releases/$1/alpine-minirootfs-3.13.5-$1.tar.gz"
+  rm -rf rootfs.tar.gz
+  curl -o rootfs.tar.gz -L "http://cdimage.ubuntu.com/ubuntu-base/releases/20.04/release/ubuntu-base-20.04.2-base-$1.tar.gz"
+
 	cp ../../run-bootstrap.sh .
 	cp ../../install-bootstrap.sh .
 	cp ../../add-user.sh .
-	cp ../build-ioctl/ioctlHook-${MUSL_ARCH}.so ioctlHook.so
-	zip -r bootstrap-$PROOT_ARCH.zip root ioctlHook.so root-pre5 rootfs.tar.xz run-bootstrap.sh install-bootstrap.sh add-user.sh
+	cp ../../ioctlHook.c .
+	zip -r bootstrap-$PROOT_ARCH.zip root ioctlHook.c root-pre5 rootfs.tar.gz run-bootstrap.sh install-bootstrap.sh add-user.sh
 	mv bootstrap-$PROOT_ARCH.zip ../
 	echo "Packed bootstrap $1"
 	cd ..
 }
 
-build_bootstrap aarch64
+build_bootstrap arm64
 build_bootstrap armhf
-build_bootstrap x86_64
-build_bootstrap x86
+build_bootstrap amd64
+#build_bootstrap i386

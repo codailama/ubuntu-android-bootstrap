@@ -1,9 +1,9 @@
 #!/system/bin/sh
 
-# unpack alpine bootstrap
+# unpack debian bootstrap
 mkdir bootstrap
 cd bootstrap
-cat ../rootfs.tar.xz | ../root/bin/minitar
+cat ../rootfs.tar.gz | ../root/bin/minitar
 cd ..
 
 # include resolv.conf
