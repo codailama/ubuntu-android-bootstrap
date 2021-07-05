@@ -69,7 +69,11 @@ build_bootstrap () {
 	cp ../../install-bootstrap.sh .
 	cp ../../add-user.sh .
 	cp ../../ioctlHook.c .
-	zip -r bootstrap-$PROOT_ARCH.zip root ioctlHook.c root-pre5 rootfs.tar.gz run-bootstrap.sh install-bootstrap.sh add-user.sh gotty.tar.gz
+	cp ../../initialize-bootstrap.sh .
+	cp ../../systemctl.py .
+	zip -r bootstrap-$PROOT_ARCH.zip \
+	       root ioctlHook.c root-pre5 rootfs.tar.gz run-bootstrap.sh \
+	       install-bootstrap.sh add-user.sh gotty.tar.gz initialize-bootstrap.sh systemctl.py
 	mv bootstrap-$PROOT_ARCH.zip ../
 	echo "Packed bootstrap $1"
 	cd ..

@@ -7,6 +7,7 @@ cat ../rootfs.tar.gz | ../root/bin/minitar
 cd ..
 
 # Copy files
+cp add-user.sh bootstrap/root
 cp ioctlHook.c bootstrap/root
 cp initialize-bootstrap.sh bootstrap/root
 
