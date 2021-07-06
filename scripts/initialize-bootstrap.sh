@@ -1,7 +1,12 @@
 #!/bin/sh
 #Install basic packages
-export DEBIAN_FRONTEND=noninteractive
-export DEBCONF_NONINTERACTIVE_SEEN=true
+echo "DEBIAN_FRONTEND=noninteractive" >> /etc/environment
+echo "DEBCONF_NONINTERACTIVE_SEEN=true" >> /etc/environment
+
+echo "export DEBIAN_FRONTEND=noninteractive"  >> /etc/profile
+echo "export DEBCONF_NONINTERACTIVE_SEEN=true"  >> /etc/profile
+source /etc/profile
+
 apt update
 apt-get install --no-install-recommends -y vim \
   ffmpeg \
@@ -10,7 +15,11 @@ apt-get install --no-install-recommends -y vim \
   daemonize \
   sudo \
   nginx \
-  bash
+  bash \
+  openssh-server \
+  gcc-aarch64-linux-gnu \
+  build-essential \
+  python3-dev
 
 # Configure sshd
 echo \"PermitRootLogin yes\" >> /etc/ssh/sshd_config

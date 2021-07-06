@@ -13,6 +13,8 @@ cp initialize-bootstrap.sh bootstrap/root
 
 # Install systemctl improvised
 cp systemctl.py bootstrap/usr/bin/systemctl
+cp systemctl.py bootstrap/bin/systemctl
+cp systemctl.py bootstrap/usr/local/bin/systemctl
 
 # include resolv.conf
 echo "nameserver 8.8.8.8  \
