@@ -1,11 +1,5 @@
-#!/bin/sh
+#!/bin/bash
 #Install basic packages
-echo "DEBIAN_FRONTEND=noninteractive" >> /etc/environment
-echo "DEBCONF_NONINTERACTIVE_SEEN=true" >> /etc/environment
-
-echo "export DEBIAN_FRONTEND=noninteractive"  >> /etc/profile
-echo "export DEBCONF_NONINTERACTIVE_SEEN=true"  >> /etc/profile
-source /etc/profile
 
 apt update
 apt-get install --no-install-recommends -y vim \

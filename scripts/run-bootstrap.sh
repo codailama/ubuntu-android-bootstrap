@@ -26,6 +26,9 @@ else
 	HOME="/home/$USER"
 fi
 
+BIND_PROC_FAKES=" -b proc_faker/proc/fakethings/stat:/proc/stat"
+BIND_PROC_FAKES+=" -b proc_faker/proc/fakethings/vmstat:/proc/vmstat"
+BIND_PROC_FAKES+=" -b proc_faker/proc/fakethings/version:/proc/version"
 
 unset TMPDIR
 unset LD_LIBRARY_PATH
@@ -33,4 +36,4 @@ export PATH
 export USER
 export HOME
 shift
-./root/bin/proot -r bootstrap $OP -b /dev -b /proc -b /sys -b /system -b /vendor -b /storage $EXTRA_BIND --link2symlink -p -L -w $HOME "$@"
+./root/bin/proot -r bootstrap $OP -b /dev -b /proc -b /sys -b /system -b /vendor -b /storage $EXTRA_BIND $BIND_PROC_FAKES --link2symlink -p -L -w $HOME "$@"
