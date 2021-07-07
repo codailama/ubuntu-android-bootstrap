@@ -16,7 +16,7 @@ import (
 )
 
 var REPLACE_FROM = []byte("com.termux")
-var REPLACE_TO = []byte("com.octo4a")
+var REPLACE_TO = []byte("com.klibot")
 
 func ReplaceInReader(r io.Reader, w io.Writer) error {
   data, err := io.ReadAll(r)

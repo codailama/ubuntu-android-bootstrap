@@ -9,7 +9,7 @@ import (
 )
 
 var REPLACE_FROM = []byte("com.termux")
-var REPLACE_TO = []byte("com.octo4a")
+var REPLACE_TO = []byte("com.klibot")
 
 func main() {
 	if len(os.Args) < 2 {

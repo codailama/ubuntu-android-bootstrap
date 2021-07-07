@@ -315,11 +315,8 @@ for package_arch in "${TERMUX_ARCHITECTURES[@]}"; do
 	# Core utilities.
 	pull_package bash
 	pull_package bzip2
-	if ! ${BOOTSTRAP_ANDROID10_COMPATIBLE}; then
-		pull_package command-not-found
-	else
-		pull_package proot
-	fi
+  pull_package command-not-found
+  pull_package proot
 	pull_package coreutils
 	pull_package curl
 	pull_package wget
@@ -355,6 +352,7 @@ for package_arch in "${TERMUX_ARCHITECTURES[@]}"; do
 	pull_package unzip
 	pull_package ffmpeg
 	pull_package libjpeg-turbo
+	pull_package htop
 
 	# Handle additional packages.
 	for add_pkg in "${ADDITIONAL_PACKAGES[@]}"; do

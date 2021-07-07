@@ -36,4 +36,4 @@ export PATH
 export USER
 export HOME
 shift
-./root/bin/proot -r bootstrap $OP -b /dev -b /proc -b /sys -b /system -b /vendor -b /storage $EXTRA_BIND $BIND_PROC_FAKES --link2symlink -p -L -w $HOME "$@"
+proot -r bootstrap $OP -b /dev -b /proc -b /sys -b /system -b /vendor -b /storage $EXTRA_BIND $BIND_PROC_FAKES --link2symlink -p -L -w $HOME "$@"

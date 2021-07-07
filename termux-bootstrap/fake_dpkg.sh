@@ -1,4 +1,4 @@
-#!/data/data/com.octo4a/files/usr/bin/bash
+#!/data/data/com.klibot/files/usr/bin/bash
 for var in "$@"
 do
 	if [[ "$var" == *.deb ]]
@@ -10,4 +10,4 @@ do
 		
 	fi
 done
-/data/data/com.octo4a/files/usr/bin/realDpkg $@
+/data/data/com.klibot/files/usr/bin/realDpkg $@
