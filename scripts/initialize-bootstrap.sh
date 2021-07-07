@@ -12,11 +12,9 @@ apt-get install --no-install-recommends -y vim \
   bash \
   openssh-server \
   gcc-aarch64-linux-gnu \
-  build-essential \
-  python3-dev
-
+  build-essential
 # Configure sshd
-echo \"PermitRootLogin yes\" >> /etc/ssh/sshd_config
+echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
 ssh-keygen -A
 mkdir -p /var/run/sshd
 chmod 700 /var/run/sshd

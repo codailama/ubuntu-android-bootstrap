@@ -16,8 +16,8 @@ cp systemctl.py bootstrap/usr/bin/systemctl
 cp systemctl.py bootstrap/bin/systemctl
 cp systemctl.py bootstrap/usr/local/bin/systemctl
 
-echo "export DEBIAN_FRONTEND=noninteractive"  >> bootstrap/etc/bash.bashrc
-echo "export DEBCONF_NONINTERACTIVE_SEEN=true"  >> bootstrap/etc/bash.bashrc
+echo "export DEBIAN_FRONTEND=noninteractive"  >> bootstrap/etc/profile
+echo "export DEBCONF_NONINTERACTIVE_SEEN=true"  >> bootstrap/etc/profile
 
 touch bootstrap/root/.hushlogin
 # include resolv.conf

@@ -3,4 +3,4 @@
 
 useradd -m -d /home/$1 -s /bin/bash -u $2 $1
 echo "$1    ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
-touch bootstrap/home/$1/.hushlogin
+touch /home/$1/.hushlogin
