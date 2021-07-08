@@ -22,7 +22,7 @@ GOOS=linux GOARCH=arm64 go build -o dpkg_replacer_aarch64 dpkg_replacer.go
 GOOS=linux GOARCH=amd64 go build -o dpkg_replacer_x86_64 dpkg_replacer.go
 GOOS=linux GOARCH=386 go build -o dpkg_replacer_i686 dpkg_replacer.go
 # Can be changed by using '--repository' option.
-REPO_BASE_URL="http://termux.net"
+REPO_BASE_URL="https://packages.termux.org/apt/termux-main"
 export WORK_DIR=$PWD
 
 # A list of non-essential packages. By default it is empty, but can
@@ -39,18 +39,23 @@ for cmd in ar awk curl grep gzip find sed tar xargs xz zip; do
 done
 
 # Download package lists from remote repository.
-# Actually, there 2 lists are downloaded: one architecture-independent and one
-# for architecture specified as '$1' argument.
+# Actually, there 2 lists can be downloaded: one architecture-independent and
+# one for architecture specified as '$1' argument. That depends on repository.
+# If repository has been created using "aptly", then architecture-independent
+# list is not available.
 read_package_list() {
 	local architecture
 	for architecture in all "$1"; do
 		if [ ! -e "${BOOTSTRAP_TMPDIR}/packages.${architecture}" ]; then
 			echo "[*] Downloading package list for architecture '${architecture}'..."
-			curl \
-				--fail \
-				--location \
+			if ! curl --fail --location \
 				--output "${BOOTSTRAP_TMPDIR}/packages.${architecture}" \
-				"${REPO_BASE_URL}/dists/stable/main/binary-${architecture}/Packages"
+				"${REPO_BASE_URL}/dists/stable/main/binary-${architecture}/Packages"; then
+				if [ "$architecture" = "all" ]; then
+					echo "[!] Skipping architecture-independent package list as not available..."
+					continue
+				fi
+			fi
 			echo >> "${BOOTSTRAP_TMPDIR}/packages.${architecture}"
 		fi
 
@@ -339,13 +344,13 @@ for package_arch in "${TERMUX_ARCHITECTURES[@]}"; do
 	pull_package python
 	pull_package openssh
 	pull_package busybox
-	
+
 	# Additional.
 	pull_package ed
 	pull_package debianutils
 	pull_package dos2unix
 	pull_package inetutils
-#	pull_package lsof
+	pull_package lsof
 	pull_package nano
 	pull_package net-tools
 	pull_package patch

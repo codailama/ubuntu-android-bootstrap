@@ -16,15 +16,15 @@ mkdir -p "$PROOT_L2S_DIR"
 
 if [ "$1" = "root" ]; then
 	OP="-0"
+	HOME_IN_PROOT=/root
 else
 	OP=""
+	HOME_IN_PROOT=/home/klibot
 fi
 
 BIND_PROC_FAKES=" -b proc_faker/proc/fakethings/stat:/proc/stat"
 BIND_PROC_FAKES+=" -b proc_faker/proc/fakethings/vmstat:/proc/vmstat"
 BIND_PROC_FAKES+=" -b proc_faker/proc/fakethings/version:/proc/version"
 
-unset TMPDIR
-unset LD_LIBRARY_PATH
 shift
-proot -r bootstrap $OP -b /dev -b /proc -b /sys -b /system -b /vendor -b /storage $EXTRA_BIND $BIND_PROC_FAKES --link2symlink -p -L -w $HOME /usr/bin/env -i PATH='/sbin:/usr/sbin:/bin:/usr/bin' "$@"
+proot -r bootstrap $OP -b /dev -b /proc -b /sys -b /system -b /vendor -b /storage $EXTRA_BIND $BIND_PROC_FAKES --link2symlink -p -L -w $HOME_IN_PROOT /usr/bin/env -i PATH='/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin' "$@"
